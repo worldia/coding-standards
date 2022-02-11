@@ -1,0 +1,36 @@
+stages:
+  - test
+  - release
+
+.test: &test
+  stage: test
+  image: registry.worldia.com/provisioning/docker/php/8.0-ci
+  cache:
+    paths:
+      - vendor
+  before_script:
+    - composer install --no-progress --ansi --no-scripts
+  except:
+    variables:
+      - $CI_COMMIT_MESSAGE =~ /skip-tests/
+      - $CI_MERGE_REQUEST_TITLE =~ /skip-tests/
+
+lint:cs-fixer:
+  <<: *test
+  script: vendor/bin/php-cs-fixer fix --dry-run -v --ansi
+
+release:version:
+  stage: release
+  variables:
+    GIT_STRATEGY: none
+  script:
+    - apk add curl git
+    - git config --global user.email "${GITLAB_USER_EMAIL}"
+    - git config --global user.name "${GITLAB_USER_NAME}"
+    - git clone https://project_${CI_PROJECT_ID}_bot:${RELEASE_TOKEN}@${CI_SERVER_HOST}/${CI_PROJECT_PATH}.git .
+    - if echo $VERSION | grep -Eq '^\d*.\d*.\d*$'; then echo "Releasing ${VERSION}"; else echo "${VERSION} is not a valid version. Exiting."; exit 1; fi;
+    - git tag ${VERSION}
+    - git push origin ${VERSION}
+    - 'curl -s -o /dev/null -w "%{http_code}" -H "Job-Token: $CI_JOB_TOKEN" -d tag=${VERSION} "${CI_API_V4_URL}/projects/$CI_PROJECT_ID/packages/composer"'
+  when: manual
+  except: [tags]
