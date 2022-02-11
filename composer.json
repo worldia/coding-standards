@@ -1,0 +1,16 @@
+{
+    "name": "platform/coding-standards",
+    "type": "lib",
+    "license": "unlicensed",
+    "description": "Worldia Coding Standards",
+    "require": {
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "CodingStandards\\": "src/"
+        }
+    }
+}
