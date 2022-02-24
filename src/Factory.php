@@ -5,7 +5,6 @@ declare(strict_types=1);
 /*
  * This file is part of the platform/coding-standards package.
  * (c) Worldia <developers@worldia.com>
- *
  */
 
 namespace CodingStandards;
@@ -23,7 +22,7 @@ class Factory
         $config = array_merge_recursive($defaults, $options);
 
         $package = json_decode(file_get_contents($rootDirectory.'/composer.json'), true);
-        $header = sprintf("This file is part of the %s package.\n(c) Worldia <developers@worldia.com>\n", $package['name']);
+        $header = sprintf("This file is part of the %s package.\n(c) Worldia <developers@worldia.com>", $package['name']);
 
         $finder = (new PhpCsFixer\Finder())
             ->exclude($config['dirs'])
