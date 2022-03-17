@@ -1,7 +1,7 @@
 {
-    "name": "platform/coding-standards",
-    "type": "lib",
-    "license": "unlicensed",
+    "name": "worldia/coding-standards",
+    "type": "library",
+    "license": "MIT",
     "description": "Worldia Coding Standards",
     "require": {
         "friendsofphp/php-cs-fixer": "^3.5"
