@@ -27,6 +27,7 @@ class Factory
                 'single_line_throw' => false,
                 'header_comment' => ['header' => $header],
                 'php_unit_test_case_static_method_calls' => ['call_type' => 'this'],
+                'declare_strict_types' => true,
             ],
         ];
 
