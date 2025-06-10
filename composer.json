@@ -4,8 +4,8 @@
     "license": "MIT",
     "description": "Worldia Coding Standards",
     "require": {
-        "friendsofphp/php-cs-fixer": "^3.6",
-        "ext-json": "*"
+        "ext-json": "*",
+        "friendsofphp/php-cs-fixer": "^3.6"
     },
     "autoload": {
         "psr-4": {
